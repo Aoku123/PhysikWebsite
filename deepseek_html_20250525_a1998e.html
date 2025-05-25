@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energieumwandlung und Nachhaltigkeit</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .name-input {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        
+        .name-input input {
+            padding: 5px;
+            border-radius: 4px;
+            border: none;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        nav {
+            background-color: var(--dark);
+            padding: 1rem 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav li {
+            margin: 0 1rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: var(--secondary);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .calculator {
+            background-color: #f0f8ff;
+            border: 1px solid #d4e6f1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .calculator h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #e8f4f8;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin: 2rem 0;
+        }
+        
+        .entropy-animation {
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .energy-ball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+        }
+        
+        .entropy-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .sources {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="name-input">
+            <label for="name">Ihr Name:</label>
+            <input type="text" id="name" placeholder="Name eingeben">
+        </div>
+        <h1>Energieumwandlung und Nachhaltigkeit</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#reversible">Reversible Vorgänge</a></li>
+            <li><a href="#entropie">Entropie</a></li>
+            <li><a href="#energietraeger">Energieträger</a></li>
+            <li><a href="#energiewende">Energiewende</a></li>
+            <li><a href="#energiebedarf">Persönlicher Bedarf</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <section id="reversible">
+            <h2>Reversible und irreversible Vorgänge</h2>
+            <p>In der Physik unterscheiden wir zwischen reversiblen (umkehrbaren) und irreversiblen (nicht umkehrbaren) Prozessen:</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Reversible Vorgänge</h3>
+                    <p>Idealisierte Prozesse, die ohne Energieverluste ablaufen und theoretisch in beide Richtungen verlaufen können.</p>
+                    <p><strong>Beispiel:</strong> Reibungsfreie Pendelbewegung oder ideale elektrische Schwingkreise.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Irreversible Vorgänge</h3>
+                    <p>Reale Prozesse, die mit Energieverlusten (meist als Wärme) verbunden sind und nicht spontan rückgängig gemacht werden können.</p>
+                    <p><strong>Beispiel:</strong> Energieumwandlung in einem Kraftwerk oder das Vermischen von heißem und kaltem Wasser.</p>
+                </div>
+            </div>
+            
+            <h3>Beispiel: Elektromotor und Generator</h3>
+            <p>Elektromotor und Generator beruhen auf dem gleichen physikalischen Prinzip und unterscheiden sich eigentlich nur darin, dass die Energieumwandlung jeweils umgekehrt stattfindet.</p>
+            
+            <div class="calculator">
+                <h3>Wirkungsgradberechnung</h3>
+                <div class="form-group">
+                    <label for="input-energy">Eingesetzte Energie (kWh):</label>
+                    <input type="number" id="input-energy" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label for="output-energy">Nutzenergie (kWh):</label>
+                    <input type="number" id="output-energy" step="0.1">
+                </div>
+                <button onclick="calculateEfficiency()">Wirkungsgrad berechnen</button>
+                <div class="result" id="efficiency-result"></div>
+            </div>
+            
+            <p>In der Praxis ist keine Energieumwandlung vollständig reversibel, da stets Verluste auftreten. Bei Elektroautos wird im Rekuperationsmodus der Elektromotor als Generator genutzt, um beim Bremsen Energie zurückzugewinnen. Allerdings beträgt der Wirkungsgrad dieser Umwandlung nur etwa 65-70%.</p>
+        </section>
+        
+        <section id="entropie">
+            <h2>Entropie und Energieentwertung</h2>
+            <p>Die Entropie (S) ist eine physikalische Größe, die die Energieentwertung bei irreversiblen Prozessen beschreibt. Sie ist eng mit dem zweiten Hauptsatz der Thermodynamik verbunden.</p>
+            
+            <div class="entropy-animation" id="entropy-animation">
+                <div class="energy-ball"></div>
+                <!-- Dots will be added by JavaScript -->
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Eigenschaften der Entropie</h3>
+                    <ul>
+                        <li>Jeder Körper bzw. jedes System enthält Entropie</li>
+                        <li>Entropie kann zwischen Systemen übertragen werden, aber nur mit Wärme</li>
+                        <li>Zusammenhang: T = Q/S (T = Temperatur, Q = Wärme, S = Entropie)</li>
+                        <li>Entropie kann nicht vernichtet, aber produziert werden</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Entropie im Kraftwerk</h3>
+                    <p>In einem Wärmekraftwerk wird möglichst wenig Entropie von der Brennkammer zur Turbine transportiert (hohe Temperatur) und möglichst viel Entropie mit wenig Energie zum Kühlturm abgeführt (niedrige Temperatur).</p>
+                    <p>Der Wirkungsgrad η eines idealen Wärmekraftwerks beträgt: η = 1 - T<sub>kalt</sub>/T<sub>warm</sub></p>
+                </div>
+            </div>
+            
+            <h3>Beispielaufgabe: Kühlturm eines Kraftwerks</h3>
+            <p>Warum ist ein Kühlturm bei einem Wärmekraftwerk physikalisch notwendig?</p>
+            <div class="calculator">
+                <button onclick="showAnswer('kuehlturm')">Lösung anzeigen</button>
+                <div class="result" id="kuehlturm-answer" style="display: none;">
+                    <p>Der Kühlturm ist notwendig, um die bei der Energieumwandlung entstandene Entropie abzuführen. Da Entropie nicht vernichtet werden kann, muss sie mit Wärme an die Umgebung abgegeben werden. Ohne diese Abfuhr würde die Entropie im System immer weiter ansteigen, was den Wirkungsgrad weiter verringern würde.</p>
+                    <p>Zudem gilt: Um Entropie abzuführen, muss ein Teil der zugeführten Energie als Wärme an die Umgebung abgegeben werden. Dies ist der Grund, warum der Wirkungsgrad eines Wärmekraftwerks niemals 100% erreichen kann.</p>
+                </div>
+            </div>
+            
+            <h3>Energieflussdiagramm eines Wärmekraftwerks</h3>
+            <div class="chart-container">
+                <canvas id="kraftwerk-chart"></canvas>
+            </div>
+        </section>
+        
+        <section id="energietraeger">
+            <h2>Energieträger und Energiequellen</h2>
+            <p>Energiequellen lassen sich in verschiedene Kategorien einteilen:</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Primärenergie</h3>
+                    <p>Energie, die in der Natur vorkommt und noch nicht umgewandelt wurde (z.B. Kohle, Erdöl, Wind, Sonnenstrahlung).</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Sekundärenergie</h3>
+                    <p>Energie, die durch Umwandlung aus Primärenergie gewonnen wird (z.B. Strom, Benzin, Fernwärme).</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Regenerative Energie</h3>
+                    <p>Energie aus nachhaltigen Quellen, die sich kurzfristig erneuern (z.B. Sonne, Wind, Wasser, Biomasse).</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Nicht-regenerative Energie</h3>
+                    <p>Energie aus endlichen Quellen, die sich nicht oder nur extrem langsam erneuern (z.B. Kohle, Erdöl, Erdgas, Uran).</p>
+                </div>
+            </div>
+            
+            <h3>Energiebedarf im internationalen Vergleich</h3>
+            <div class="chart-container">
+                <canvas id="energy-comparison-chart"></canvas>
+            </div>
+            
+            <div class="calculator">
+                <h3>Energieumwandlungskette</h3>
+                <div class="form-group">
+                    <label for="energy-source">Energiequelle:</label>
+                    <select id="energy-source">
+                        <option value="coal">Kohle</option>
+                        <option value="gas">Erdgas</option>
+                        <option value="oil">Erdöl</option>
+                        <option value="nuclear">Kernenergie</option>
+                        <option value="hydro">Wasserkraft</option>
+                        <option value="wind">Windenergie</option>
+                        <option value="solar">Solarenergie</option>
+                    </select>
+                </div>
+                <button onclick="showConversionChain()">Umwandlungskette anzeigen</button>
+                <div class="result" id="conversion-chain"></div>
+            </div>
+            
+            <h3>Blockheizkraftwerke (BHKW)</h3>
+            <p>Blockheizkraftwerke nutzen das Prinzip der Kraft-Wärme-Kopplung, bei dem gleichzeitig Strom und Wärme erzeugt werden. Dadurch können Gesamtwirkungsgrade von über 90% erreicht werden.</p>
+            
+            <div class="chart-container">
+                <canvas id="bhkw-chart"></canvas>
+            </div>
+        </section>
+        
+        <section id="energiewende">
+            <h2>Energiewende und nachhaltige Lösungen</h2>
+            <p>Die Energiewende beschreibt den Übergang von nicht-regenerativen zu regenerativen Energiequellen, um den Klimawandel zu bekämpfen.</p>
+            
+            <h3>Beispiel: Wildpoldsried - Das Energiedorf</h3>
+            <p>Wildpoldsried in Bayern ist ein Vorreiter der Energiewende. Das Dorf produziert mehr als 500% seines Energiebedarfs aus erneuerbaren Quellen:</p>
+            <ul>
+                <li>11 Windkraftanlagen</li>
+                <li>Biogasanlagen</li>
+                <li>Photovoltaikanlagen</li>
+                <li>Wasserkraft</li>
+                <li>Holzheizwerk</li>
+            </ul>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Vorteile der dezentralen Energieversorgung</h3>
+                    <ul>
+                        <li>Unabhängigkeit von Energieimporten</li>
+                        <li>Geringere Übertragungsverluste</li>
+                        <li>Förderung regionaler Wirtschaft</li>
+                        <li>Höhere Akzeptanz in der Bevölkerung</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Herausforderungen</h3>
+                    <ul>
+                        <li>Schwankende Energieerzeugung</li>
+                        <li>Notwendigkeit von Speichertechnologien</li>
+                        <li>Hohe Anfangsinvestitionen</li>
+                        <li>Flächenbedarf</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Internationaler Vergleich der Energiewende</h3>
+            <div class="chart-container">
+                <canvas id="energy-transition-chart"></canvas>
+            </div>
+        </section>
+        
+        <section id="energiebedarf">
+            <h2>Persönlicher Energiebedarf</h2>
+            <p>Jeder von uns verbraucht täglich Energie - bewusst und unbewusst. Der durchschnittliche Energiebedarf in Deutschland beträgt etwa 120 kWh pro Person und Tag.</p>
+            
+            <div class="calculator">
+                <h3>Persönlicher Energiebedarfsrechner</h3>
+                
+                <h4>Elektrische Geräte</h4>
+                <div class="form-group">
+                    <label for="device-power">Geräteleistung (Watt):</label>
+                    <input type="number" id="device-power">
+                </div>
+                <div class="form-group">
+                    <label for="device-hours">Nutzungsdauer pro Tag (Stunden):</label>
+                    <input type="number" id="device-hours" step="0.1">
+                </div>
+                <button onclick="addDevice()">Gerät hinzufügen</button>
+                
+                <h4>Warmwasser</h4>
+                <div class="form-group">
+                    <label for="shower-time">Duschdauer pro Woche (Minuten):</label>
+                    <input type="number" id="shower-time">
+                </div>
+                <div class="form-group">
+                    <label for="bath-count">Anzahl Bäder pro Woche:</label>
+                    <input type="number" id="bath-count">
+                </div>
+                
+                <h4>Mobilität</h4>
+                <div class="form-group">
+                    <label for="car-km">Gefahrene Kilometer pro Woche (Auto):</label>
+                    <input type="number" id="car-km">
+                </div>
+                <div class="form-group">
+                    <label for="public-transport-km">Gefahrene Kilometer pro Woche (ÖPNV):</label>
+                    <input type="number" id="public-transport-km">
+                </div>
+                
+                <button onclick="calculatePersonalEnergy()">Energiebedarf berechnen</button>
+                <div class="result" id="personal-energy-result"></div>
+            </div>
+            
+            <h3>Energiespartipps</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>Elektrische Geräte</h4>
+                    <ul>
+                        <li>Standby-Modus vermeiden</li>
+                        <li>Ladegeräte nach Gebrauch ausstecken</li>
+                        <li>Energiesparende Geräte (A+++) bevorzugen</li>
+                        <li>Licht ausschalten, wenn nicht benötigt</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>Warmwasser</h4>
+                    <ul>
+                        <li>Duschen statt Baden</li>
+                        <li>Sparduschkopf verwenden</li>
+                        <li>Wasser beim Einseifen abstellen</li>
+                        <li>Waschmaschine voll beladen</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>Mobilität</h4>
+                    <ul>
+                        <li>Öffentliche Verkehrsmittel nutzen</li>
+                        <li>Fahrgemeinschaften bilden</li>
+                        <li>Kurze Strecken zu Fuß oder mit dem Rad</li>
+                        <li>Spritsparend fahren</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Beispielrechnung: Energiebedarf für ein Bad</h3>
+            <p>Ein Bad mit 150 Liter Wasser, das von 10°C auf 50°C erwärmt wird, benötigt:</p>
+            <p>Q = c<sub>w</sub> · m · ΔT = 4,2 kJ/(kg·K) · 150 kg · 40 K = 25.200 kJ = 7,0 kWh</p>
+            <p>Bei einem Bad pro Woche: 7,0 kWh / (7 Tage · 1 Person) = 1,0 kWh/(d·p)</p>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Energieumwandlung und Nachhaltigkeit</p>
+        <div class="sources">
+            <h4>Quellen:</h4>
+            <ul>
+                <li>Physik Schulbuch, Kapitel Energieumwandlung</li>
+                <li>Statistisches Bundesamt - Energieverbrauch in Deutschland</li>
+                <li>Umweltbundesamt - Erneuerbare Energien</li>
+                <li>Internationale Energieagentur (IEA) - World Energy Outlook</li>
+                <li>Gemeinde Wildpoldsried - Energiekonzept</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Name input functionality
+        const nameInput = document.getElementById('name');
+        nameInput.addEventListener('change', function() {
+            document.querySelector('header h1').textContent = `Energieumwandlung und Nachhaltigkeit - ${this.value}`;
+        });
+        
+        // Entropy animation
+        const entropyAnimation = document.getElementById('entropy-animation');
+        let entropyDots = [];
+        
+        function createEntropyAnimation() {
+            // Clear existing dots
+            entropyDots.forEach(dot => {
+                if (dot.parentNode) {
+                    entropyAnimation.removeChild(dot);
+                }
+            });
+            entropyDots = [];
+            
+            // Create new dots
+            for (let i = 0; i < 20; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'entropy-dot';
+                dot.style.left = `${10 + Math.random() * 80}%`;
+                dot.style.top = `${10 + Math.random() * 80}%`;
+                entropyAnimation.appendChild(dot);
+                entropyDots.push(dot);
+            }
+            
+            // Animate energy ball
+            const ball = document.querySelector('.energy-ball');
+            let pos = 10;
+            let direction = 1;
+            let entropyCount = 0;
+            
+            const animate = () => {
+                pos += direction * 0.5;
+                ball.style.left = `${pos}%`;
+                
+                // Change direction at edges
+                if (pos >= 90 || pos <= 10) {
+                    direction *= -1;
+                    
+                    // Add entropy when changing direction
+                    if (entropyCount < entropyDots.length) {
+                        entropyDots[entropyCount].style.backgroundColor = '#e74c3c';
+                        entropyCount++;
+                    }
+                }
+                
+                requestAnimationFrame(animate);
+            };
+            
+            animate();
+        }
+        
+        // Initialize animation
+        createEntropyAnimation();
+        
+        // Chart for Kraftwerk
+        function createKraftwerkChart() {
+            const ctx = document.getElementById('kraftwerk-chart').getContext('2d');
+            return new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Brennstoffenergie', 'Elektrische Energie', 'Abwärme'],
+                    datasets: [{
+                        data: [100, 40, 60],
+                        backgroundColor: [
+                            '#e74c3c',
+                            '#3498db',
+                            '#f39c12'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Energiefluss in einem Wärmekraftwerk (Wirkungsgrad 40%)',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Chart for energy comparison
+        function createEnergyComparisonChart() {
+            const ctx = document.getElementById('energy-comparison-chart').getContext('2d');
+            return new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Deutschland', 'USA', 'China', 'EU-Durchschnitt', 'Weltdurchschnitt'],
+                    datasets: [{
+                        label: 'Energiebedarf (kWh pro Person und Tag)',
+                        data: [120, 200, 80, 100, 60],
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(231, 76, 60, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(155, 89, 182, 0.7)',
+                            'rgba(241, 196, 15, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(155, 89, 182, 1)',
+                            'rgba(241, 196, 15, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'kWh/(d·p)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Energiebedarf im internationalen Vergleich (2019)',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Chart for BHKW
+        function createBHKWChart() {
+            const ctx = document.getElementById('bhkw-chart').getContext('2d');
+            return new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Brennstoffenergie', 'Elektrische Energie', 'Nutzbare Wärme', 'Verluste'],
+                    datasets: [{
+                        data: [100, 35, 55, 10],
+                        backgroundColor: [
+                            '#e74c3c',
+                            '#3498db',
+                            '#2ecc71',
+                            '#f39c12'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Energiefluss in einem Blockheizkraftwerk (Wirkungsgrad 90%)',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Chart for energy transition
+        function createEnergyTransitionChart() {
+            const ctx = document.getElementById('energy-transition-chart').getContext('2d');
+            return new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Deutschland', 'Dänemark', 'Schweden', 'Frankreich', 'USA', 'China'],
+                    datasets: [
+                        {
+                            label: 'Anteil erneuerbarer Energien (%)',
+                            data: [42, 60, 55, 20, 20, 30],
+                            backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                            borderColor: 'rgba(46, 204, 113, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Ziel für 2030 (%)',
+                            data: [65, 100, 100, 33, 50, 40],
+                            backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                            borderColor: 'rgba(52, 152, 219, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Anteil in %'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Anteil erneuerbarer Energien im internationalen Vergleich',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize all charts
+        document.addEventListener('DOMContentLoaded', function() {
+            createKraftwerkChart();
+            createEnergyComparisonChart();
+            createBHKWChart();
+            createEnergyTransitionChart();
+        });
+        
+        // Calculator functions
+        function calculateEfficiency() {
+            const inputEnergy = parseFloat(document.getElementById('input-energy').value);
+            const outputEnergy = parseFloat(document.getElementById('output-energy').value);
+            
+            if (isNaN(inputEnergy) || isNaN(outputEnergy) || inputEnergy <= 0) {
+                alert('Bitte gültige Werte eingeben!');
+                return;
+            }
+            
+            const efficiency = (outputEnergy / inputEnergy) * 100;
+            document.getElementById('efficiency-result').innerHTML = `Wirkungsgrad: ${efficiency.toFixed(1)}%`;
+        }
+        
+        function showAnswer(id) {
+            const answerElement = document.getElementById(`${id}-answer`);
+            answerElement.style.display = answerElement.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        function showConversionChain() {
+            const source = document.getElementById('energy-source').value;
+            let chain = '';
+            
+            switch(source) {
+                case 'coal':
+                    chain = 'Kohle → Verbrennung im Kraftwerk → Strom → Endverbraucher';
+                    break;
+                case 'gas':
+                    chain = 'Erdgas → Verbrennung im Gaskraftwerk oder BHKW → Strom und Wärme → Endverbraucher';
+                    break;
+                case 'oil':
+                    chain = 'Erdöl → Raffinerie → Benzin/Diesel/Heizöl → Verbrennung im Motor oder Heizung → Nutzenergie';
+                    break;
+                case 'nuclear':
+                    chain = 'Uran → Kernspaltung → Wärme → Dampfturbine → Strom → Endverbraucher';
+                    break;
+                case 'hydro':
+                    chain = 'Wasser → Staudamm → Turbine → Strom → Endverbraucher';
+                    break;
+                case 'wind':
+                    chain = 'Wind → Windturbine → Strom → Endverbraucher';
+                    break;
+                case 'solar':
+                    chain = 'Sonnenstrahlung → Photovoltaikmodul → Strom → Endverbraucher';
+                    break;
+            }
+            
+            document.getElementById('conversion-chain').innerHTML = `<p><strong>Umwandlungskette:</strong> ${chain}</p>`;
+        }
+        
+        let devices = [];
+        
+        function addDevice() {
+            const power = parseFloat(document.getElementById('device-power').value);
+            const hours = parseFloat(document.getElementById('device-hours').value);
+            
+            if (isNaN(power) || isNaN(hours) || power <= 0 || hours < 0) {
+                alert('Bitte gültige Werte eingeben!');
+                return;
+            }
+            
+            devices.push({ power, hours });
+            updateDeviceList();
+        }
+        
+        function updateDeviceList() {
+            const resultElement = document.getElementById('personal-energy-result');
+            let html = '<h4>Eingetragene Geräte:</h4><ul>';
+            
+            devices.forEach((device, index) => {
+                const dailyEnergy = (device.power * device.hours) / 1000; // kWh
+                html += `<li>Gerät ${index + 1}: ${device.power} W für ${device.hours} h/Tag = ${dailyEnergy.toFixed(2)} kWh/Tag</li>`;
+            });
+            
+            html += '</ul>';
+            resultElement.innerHTML = html;
+        }
+        
+        function calculatePersonalEnergy() {
+            // Calculate electrical devices
+            let electricalEnergy = 0;
+            devices.forEach(device => {
+                electricalEnergy += (device.power * device.hours) / 1000; // kWh per day
+            });
+            
+            // Calculate warm water
+            const showerTime = parseFloat(document.getElementById('shower-time').value) || 0;
+            const bathCount = parseFloat(document.getElementById('bath-count').value) || 0;
+            
+            // Shower: approx. 0.1 kWh per minute
+            const showerEnergy = (showerTime * 0.1) / 7; // kWh per day
+            // Bath: 7 kWh per bath
+            const bathEnergy = (bathCount * 7) / 7; // kWh per day
+            
+            const warmWaterEnergy = showerEnergy + bathEnergy;
+            
+            // Calculate mobility
+            const carKm = parseFloat(document.getElementById('car-km').value) || 0;
+            const publicTransportKm = parseFloat(document.getElementById('public-transport-km').value) || 0;
+            
+            // Car: approx. 0.074 l/km, 10 kWh per liter
+            const carEnergy = (carKm * 0.074 * 10) / 7; // kWh per day
+            // Public transport: approx. 0.05 kWh per km
+            const publicTransportEnergy = (publicTransportKm * 0.05) / 7; // kWh per day
+            
+            const mobilityEnergy = carEnergy + publicTransportEnergy;
+            
+            // Total energy
+            const totalEnergy = electricalEnergy + warmWaterEnergy + mobilityEnergy;
+            
+            // Display results
+            const resultElement = document.getElementById('personal-energy-result');
+            let html = '<h4>Ergebnis:</h4>';
+            html += `<p>Elektrische Geräte: ${electricalEnergy.toFixed(2)} kWh/Tag</p>`;
+            html += `<p>Warmwasser: ${warmWaterEnergy.toFixed(2)} kWh/Tag</p>`;
+            html += `<p>Mobilität: ${mobilityEnergy.toFixed(2)} kWh/Tag</p>`;
+            html += `<p><strong>Gesamtenergiebedarf: ${totalEnergy.toFixed(2)} kWh/(d·p)</strong></p>`;
+            html += `<p>Zum Vergleich: Deutscher Durchschnitt = 120 kWh/(d·p)</p>`;
+            
+            resultElement.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
